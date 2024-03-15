@@ -1,0 +1,46 @@
+
+--------------------------------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+
+class RomanToIntegerConverter
+{
+    private static readonly Dictionary<char, int> RomanValues = new Dictionary<char, int>
+    {
+        {'I', 1},
+        {'V', 5},
+        {'X', 10},
+        {'L', 50},
+        {'C', 100},
+        {'D', 500},
+        {'M', 1000}
+    };
+
+    public static int RomanToInt(string s)
+    {
+        int result = 0;
+        
+        for (int i = 0; i < s.Length; i++)
+        {
+            if (i < s.Length - 1 && RomanValues[s[i]] < RomanValues[s[i + 1]])
+            {
+                result -= RomanValues[s[i]];
+            }
+            else
+            {
+                result += RomanValues[s[i]];
+            }
+        }
+        
+        return result;
+    }
+
+    static void Main()
+    {
+        Console.WriteLine("Введите римское число: ");
+        string input = Console.ReadLine();
+        
+        int result = RomanToInt(input);
+        Console.WriteLine($"Результат: {result}");
+    }
+}

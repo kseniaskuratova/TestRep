@@ -1,0 +1,282 @@
+УП Практическая работа 2.2
+Задание 1. Создайте класс с именем Student, содержащий свойства: фамилия, дата
+рождения, номер группы, успеваемость (массив из пяти элементов). Добавить возможность
+изменения фамилии, даты рождения и номера группы. Добавить возможность вывода
+информации о студенте, фамилия и дата рождения которого введены пользователем.
+Написать программу, демонстрирующую все возможности класса
+
+using System;
+
+class Student
+{
+    public string LastName { get; set; }
+    public DateTime DateOfBirth { get; set; }
+    public string GroupNumber { get; set; }
+    public int[] Grades { get; set; }
+
+    public Student(string lastName, DateTime dateOfBirth, string groupNumber, int[] grades)
+    {
+        LastName = lastName;
+        DateOfBirth = dateOfBirth;
+        GroupNumber = groupNumber;
+        Grades = grades;
+    }
+
+    public void UpdateLastName(string newLastName)
+    {
+        LastName = newLastName;
+    }
+
+    public void UpdateDateOfBirth(DateTime newDateOfBirth)
+    {
+        DateOfBirth = newDateOfBirth;
+    }
+
+    public void UpdateGroupNumber(string newGroupNumber)
+    {
+        GroupNumber = newGroupNumber;
+    }
+
+    public void DisplayInfo()
+    {
+        Console.WriteLine($"Фамилия: {LastName}");
+        Console.WriteLine($"Дата рождения: {DateOfBirth.ToShortDateString()}");
+        Console.WriteLine($"Номер группы: {GroupNumber}");
+        Console.WriteLine("Успеваемость:");
+        for (int i = 0; i < Grades.Length; i++)
+        {
+            Console.WriteLine($"Оценка за сессию {i + 1}: {Grades[i]}");
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Введите фамилию студента: ");
+        string lastName = Console.ReadLine();
+
+        Console.Write("Введите дату рождения студента (гггг-мм-дд): ");
+        DateTime dateOfBirth = DateTime.Parse(Console.ReadLine());
+
+        Console.Write("Введите номер группы студента: ");
+        string groupNumber = Console.ReadLine();
+
+        int[] grades = new int[5];
+        for (int i = 0; i < 5; i++)
+        {
+            Console.Write($"Введите оценку за сессию {i + 1}: ");
+            grades[i] = int.Parse(Console.ReadLine());
+        }
+        Console.WriteLine(" ");
+        Student student = new Student(lastName, dateOfBirth, groupNumber, grades);
+        student.DisplayInfo();
+    }
+}
+Задание 2. Создайте класс с именем Train, содержащий свойства: название пункта
+назначения, номер поезда, время отправления. Добавить возможность вывода
+информации о поезде, номер которого введен пользователем. Написать программу,
+демонстрирующую все возможности класса;
+
+using System;
+
+class Train
+{
+    public string Destination { get; set; яя}
+    public int TrainNumber { get; set; }
+    public DateTime DepartureTime { get; set; }
+
+    public Train(string destination, int trainNumber, DateTime departureTime)
+    {
+        Destination = destination;
+        TrainNumber = trainNumber;
+        DepartureTime = departureTime;
+    }
+
+    public void DisplayTrainInfo()
+    {
+        Console.WriteLine($"Информация о поезде №{TrainNumber}:");
+        Console.WriteLine($"Пункт назначения: {Destination}");
+        Console.WriteLine($"Время отправления: {DepartureTime.ToString("dd-MM-yyyy HH:mm")}");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Train[] trains = new Train[3]; 
+
+        trains[0] = new Train("Москва", 1001, new DateTime(2022, 10, 15, 8, 0, 0));
+        trains[1] = new Train("Санкт-Петербург", 2002, new DateTime(2022, 10, 16, 10, 30, 0));
+        trains[2] = new Train("Екатеринбург", 3003, new DateTime(2022, 10, 17, 15, 45, 0));
+
+        Console.Write("Введите номер поезда для получения информации: ");
+        int trainNumberInput = int.Parse(Console.ReadLine());
+
+        bool trainFound = false;
+        foreach (Train train in trains)
+        {
+            if (train.TrainNumber == trainNumberInput)
+            {
+                train.DisplayTrainInfo();
+                trainFound = true;
+                break;
+            }
+        }
+
+        if (!trainFound)
+        {
+            Console.WriteLine("Поезд с указанным номером не найден.");
+        }
+    }
+}
+
+Задание 3. Создайте класс с двумя свойствами для хранения целых чисел. Добавить
+метод для вывода на экран и метод для изменения этих чисел. Добавить метод, который
+находит сумму значений этих чисел, и метод который находит наибольшее значение из
+этих чисел. Написать программу, демонстрирующую все возможности класса;
+using System;
+
+class NumberProcessor
+{
+    private int number1;
+    private int number2;
+
+    public int Number1
+    {
+        get { return number1; }
+        set { number1 = value; }
+    }
+
+    public int Number2
+    {
+        get { return number2; }
+        set { number2 = value; }
+    }
+
+    public void DisplayNumbers()
+    {
+        Console.WriteLine($"Первое число: {Number1}");
+        Console.WriteLine($"Второе число: {Number2}");
+    }
+
+    public void ModifyNumbers(int newNumber1, int newNumber2)
+    {
+        Number1 = newNumber1;
+        Number2 = newNumber2;
+    }
+
+    public int CalculateSum()
+    {
+        return Number1 + Number2;
+    }
+
+    public int FindMaxNumber()
+    {
+        return Math.Max(Number1, Number2);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        NumberProcessor numbers = new NumberProcessor();
+
+        Console.Write("Введите первое число: ");
+        int num1 = int.Parse(Console.ReadLine());
+        Console.Write("Введите второе число: ");
+        int num2 = int.Parse(Console.ReadLine());
+
+        numbers.ModifyNumbers(num1, num2);
+
+        Console.WriteLine("\nИнформация о числах:");
+        numbers.DisplayNumbers();
+
+        Console.WriteLine($"\nСумма чисел: {numbers.CalculateSum()}");
+        Console.WriteLine($"Наибольшее число: {numbers.FindMaxNumber()}");
+    }
+}
+-----------------------------------------------------------------------------------------
+Задание 4. Описать класс, реализующий счетчик, который может увеличивать или
+уменьшать свое значение на единицу. Предусмотреть инициализацию счетчика со
+значением по умолчанию и произвольным значением. Счетчик имеет два метода:
+увеличения и уменьшения, — и свойство, позволяющее получить его текущее состояние.
+Написать программу, демонстрирующую все возможности класса;
+-----------------------------------------------------------------------------------------
+using System;
+
+class Counter
+{
+    private int count;
+
+    public Counter()
+    {
+        count = 0; // значение по умолчанию
+    }
+
+    public Counter(int startValue)
+    {
+        count = startValue; // произвольное начальное значение
+    }
+
+    public void Increment()
+    {
+        count++;
+    }
+
+    public void Decrement()
+    {
+        count--;
+    }
+
+    public int CurrentCount
+    {
+        get { return count; }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Выберите начальное значение счетчика:");
+        Console.WriteLine("1. Значение по умолчанию (0)");
+        Console.WriteLine("2. Произвольное значение");
+
+        int choice = Convert.ToInt32(Console.ReadLine());
+        Counter myCounter;
+
+        switch (choice)
+        {
+            case 1:
+                myCounter = new Counter();
+                break;
+            case 2:
+                Console.Write("Введите произвольное начальное значение: ");
+                int startValue = Convert.ToInt32(Console.ReadLine());
+                myCounter = new Counter(startValue);
+                break;
+            default:
+                Console.WriteLine("Некорректный выбор. Используется значение по умолчанию.");
+                myCounter = new Counter();
+                break;
+        }
+
+        Console.WriteLine($"Текущее значение счетчика: {myCounter.CurrentCount}");
+
+        myCounter.Increment();
+        Console.WriteLine($"Увеличили счетчик. Текущее значение: {myCounter.CurrentCount}");
+
+        myCounter.Decrement();
+        Console.WriteLine($"Уменьшили счетчик. Текущее значение: {myCounter.CurrentCount}");
+    }
+}
+---------------------------------------------------------------------------------------------------
+Задание 5. Создать класс с двумя свойствами. Добавить конструктор с входными
+параметрами. Добавить конструктор, инициализирующий свойства по умолчанию.
+Добавить деструктор, выводящий на экран сообщение об удалении объекта. Написать
+программу, демонстрирующую все возможности класса;
+
