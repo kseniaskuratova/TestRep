@@ -279,4 +279,56 @@ class Program
 параметрами. Добавить конструктор, инициализирующий свойства по умолчанию.
 Добавить деструктор, выводящий на экран сообщение об удалении объекта. Написать
 программу, демонстрирующую все возможности класса;
+using System;
+
+class MyClass
+{
+    private int property1;
+    private string property2;
+
+    public MyClass(int value1, string value2)
+    {
+        property1 = value1;
+        property2 = value2;
+    }
+
+    public MyClass()
+    {
+        property1 = 0;
+        property2 = "default";
+    }
+
+    ~MyClass()
+    {
+        Console.WriteLine("Объект удален.");
+    }
+
+    public int Property1
+    {
+        get { return property1; }
+        set { property1 = value; }
+    }
+
+    public string Property2
+    {
+        get { return property2; }
+        set { property2 = value; }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Введите число:");
+        int input1 = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Введите строку:");
+        string input2 = Console.ReadLine();
+
+        MyClass obj = new MyClass(input1, input2);
+        Console.WriteLine("Свойство 1: " + obj.Property1);
+        Console.WriteLine("Свойство 2: " + obj.Property2);
+    }
+}
 
